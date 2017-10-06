@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Emergency Kit</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="imagenbg" text-center>
+    <h1>EMERGENCY KIT</h1>
+    <h3>OCHA ROLAC</h3>
+  </div>
+  <br><br>
+  <p text-center>In this application you will be able to see the necessary tools for the main actions that must be developed during an emergency
+    </p>
+  
+  <div class="row">
+    <div class="col col-100 menu-main" (click)="goToTheLists('1','CHECKLIST AND HANDBOOK','0')">
+        <ion-icon name="folder"></ion-icon><br>
+        CHECKLIST AND HANDBOOK
+    </div>
+    <div class="col col-100 menu-main" (click)="goToTheLists('2','DIRECTORIES','0')">
+        <ion-icon name="folder"></ion-icon><br>
+        DIRECTORIES
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col col-50 menu-main" (click)="goToTheSubolders('3','TEMPLATES')">
+        <ion-icon name="folder"></ion-icon><br>
+        TEMPLATES
+    </div>
+    <div class="col col-50 menu-main" (click)="goToTheLists('4','HUMANITARIAN RESPONSE PLAN','0')">
+        <ion-icon name="folder"></ion-icon><br>
+        HUMANITARIAN RESPONSE PLAN
+    </div>
+  </div>
+  
+
+    <br><br>
+  
+</ion-content>

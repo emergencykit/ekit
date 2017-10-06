@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{nombre}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggleSearchbar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar class="divtoolbar" *ngIf="showSearchbar">
+      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="action-sheets-basic-page">
+  <h5>Document List <br> <span class="label-info">Press item for more options</span></h5>
+  <!-- <ion-list>
+    <ion-item-sliding text-wrap *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)">
+      <ion-item>
+        <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>
+        <h4>{{post.fecha_modifica.date | date: 'd MMM yyyy' }}</h4>
+        <p>{{post.nombre}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button (click)="regularShare()"><ion-icon ios="ios-share" md="md-share"></ion-icon></button>
+        <button ion-button color="secondary" (click)="share(item)"><ion-icon ios="ios-download" md="md-download"></ion-icon></button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+-->
+      <div class="listaall">
+          
+          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)" (press)="presentActionSheet(post.nombre_archivo,post.nombre)">
+
+            <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>
+
+            <h4>{{post.fecha_modifica.date | date: 'd MMM yyyy' }}</h4>
+            <p>{{post.nombre}}</p>
+            
+          </div>
+
+        </div>
+
+</ion-content>
