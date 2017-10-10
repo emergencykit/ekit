@@ -656,7 +656,7 @@ var ListPage = (function () {
         });
         alert.present();
     };
-    ListPage.prototype.viewerDocument = function (nombre) {
+    ListPage.prototype.viewerDocument = function (nombre, tipo) {
         var _this = this;
         var loading = this.loadingCtrl.create({
             content: 'Please wait...'
@@ -664,14 +664,19 @@ var ListPage = (function () {
         loading.present();
         this.platform.ready().then(function () {
             var fileTransfer = _this.transfer.create();
-            var url = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/' + nombre);
+            _this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/' + nombre);
+            _this.codigo = 'application/' + tipo;
+            if (tipo != 'pdf') {
+                _this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/office/' + nombre);
+                _this.codigo = 'application/msword';
+            }
             //this.presentAlert(url);
             //this.presentAlert(this.storageDirectory+nombre);
-            fileTransfer.download(url, _this.storageDirectory + nombre).then(function (entry) {
+            fileTransfer.download(_this.tipo_file, _this.storageDirectory + nombre).then(function (entry) {
                 //this.presentAlert(entry.toURL());
                 //this.document.viewDocument(entry.toURL(), 'application/pdf', options);
                 loading.dismiss();
-                _this.fileOpener.open(entry.toURL(), 'application/pdf')
+                _this.fileOpener.open(entry.toURL(), 'application/' + tipo)
                     .then(function () { return console.log('File is opened'); })
                     .catch(function (e) { return console.log('Error openening file', e); });
             }, function (error) {
@@ -718,7 +723,7 @@ var ListPage = (function () {
     ListPage.prototype.onPress = function () {
         console.log('pressed');
     };
-    ListPage.prototype.regularShare = function (nombre, nombre2) {
+    ListPage.prototype.regularShare = function (nombre, nombre2, tipo) {
         var _this = this;
         var loading = this.loadingCtrl.create({
             content: 'Please wait...'
@@ -726,15 +731,18 @@ var ListPage = (function () {
         loading.present();
         this.platform.ready().then(function () {
             var fileTransfer = _this.transfer.create();
-            var url = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/' + nombre);
-            fileTransfer.download(url, _this.storageDirectory + nombre).then(function (entry) {
+            _this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/' + nombre);
+            if (tipo != 'pdf') {
+                _this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/office/' + nombre);
+            }
+            fileTransfer.download(_this.tipo_file, _this.storageDirectory + nombre).then(function (entry) {
                 loading.dismiss();
                 // share(message, subject, file, url)
-                _this.socialSharing.share("This a file shared from Emergency Kit APP by OCHA ROLAC", nombre2, entry.toURL(), url);
+                _this.socialSharing.share("This a file shared from Emergency Kit APP by OCHA ROLAC", nombre2, entry.toURL(), null);
             }, function (error) { });
         });
     };
-    ListPage.prototype.presentActionSheet = function (nombre, nombre2) {
+    ListPage.prototype.presentActionSheet = function (nombre, nombre2, tipo) {
         var _this = this;
         var actionSheet = this.actionSheetCtrl.create({
             title: 'File options',
@@ -743,13 +751,13 @@ var ListPage = (function () {
                     text: 'Download',
                     icon: 'download',
                     handler: function () {
-                        _this.viewerDocument(nombre);
+                        _this.viewerDocument(nombre, tipo);
                     }
                 }, {
                     text: 'Share',
                     icon: 'share',
                     handler: function () {
-                        _this.regularShare(nombre, nombre2);
+                        _this.regularShare(nombre, nombre2, tipo);
                     }
                 }, {
                     text: 'Cancel',
@@ -765,7 +773,7 @@ var ListPage = (function () {
 }());
 ListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-list',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\list\list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{nombre}}</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="toggleSearchbar()">\n        <ion-icon name="search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n  <ion-toolbar class="divtoolbar" *ngIf="showSearchbar">\n      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class="action-sheets-basic-page">\n  <h5>Document List <br> <span class="label-info">Press item for more options</span></h5>\n  <!-- <ion-list>\n    <ion-item-sliding text-wrap *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)">\n      <ion-item>\n        <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n        <h4>{{post.fecha_modifica.date | date: \'d MMM yyyy\' }}</h4>\n        <p>{{post.nombre}}</p>\n      </ion-item>\n      <ion-item-options side="right">\n        <button ion-button (click)="regularShare()"><ion-icon ios="ios-share" md="md-share"></ion-icon></button>\n        <button ion-button color="secondary" (click)="share(item)"><ion-icon ios="ios-download" md="md-download"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n-->\n      <div class="listaall">\n          \n          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)" (press)="presentActionSheet(post.nombre_archivo,post.nombre)">\n\n            <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n\n            <h4>{{post.fecha_modifica.date | date: \'d MMM yyyy\' }}</h4>\n            <p>{{post.nombre}}</p>\n            \n          </div>\n\n        </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\list\list.html"*/,
+        selector: 'page-list',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\list\list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{nombre}}</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="toggleSearchbar()">\n        <ion-icon name="search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n  <ion-toolbar class="divtoolbar" *ngIf="showSearchbar">\n      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class="action-sheets-basic-page">\n  <h5>Document List <br> <span class="label-info">Press item for more options</span></h5>\n  <!-- <ion-list>\n    <ion-item-sliding text-wrap *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)">\n      <ion-item>\n        <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n        <h4>{{post.fecha_modifica.date | date: \'d MMM yyyy\' }}</h4>\n        <p>{{post.nombre}}</p>\n      </ion-item>\n      <ion-item-options side="right">\n        <button ion-button (click)="regularShare()"><ion-icon ios="ios-share" md="md-share"></ion-icon></button>\n        <button ion-button color="secondary" (click)="share(item)"><ion-icon ios="ios-download" md="md-download"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n-->\n      <div class="listaall">\n          \n          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo,post.tipo_adjunto)" (press)="presentActionSheet(post.nombre_archivo,post.nombre,post.tipo_adjunto)">\n\n            <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n\n            <h4>{{post.dfecha }}</h4>\n            <p>{{post.nombre}}</p>\n            \n          </div>\n\n        </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\list\list.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["b" /* FileTransferObject */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__["a" /* SocialSharing */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_opener__["a" /* FileOpener */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__["a" /* WeatherProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])

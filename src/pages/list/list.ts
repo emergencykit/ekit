@@ -16,6 +16,8 @@ export class ListPage {
   datos: any;
   storageDirectory: string = '';
   nombre: string;
+  tipo_file: string;
+  codigo: string;
   searchQuery: string = '';
   items: any; 
   showSearchbar: boolean = false;
@@ -41,22 +43,28 @@ export class ListPage {
     });
     alert.present();
   }
-  viewerDocument(nombre){
+  viewerDocument(nombre,tipo){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loading.present();
     this.platform.ready().then(() => {
-    
       const fileTransfer: FileTransferObject = this.transfer.create();
-      const url = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/'+nombre);
+      this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/'+nombre);
+      this.codigo = 'application/'+tipo;
+      if(tipo != 'pdf'){
+        this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/office/'+nombre);
+        this.codigo = 'application/msword';
+      }
+      
+      
       //this.presentAlert(url);
       //this.presentAlert(this.storageDirectory+nombre);
-      fileTransfer.download(url, this.storageDirectory+nombre).then((entry) => {
+      fileTransfer.download(this.tipo_file, this.storageDirectory+nombre).then((entry) => {
         //this.presentAlert(entry.toURL());
         //this.document.viewDocument(entry.toURL(), 'application/pdf', options);
         loading.dismiss();
-        this.fileOpener.open(entry.toURL(), 'application/pdf')
+        this.fileOpener.open(entry.toURL(), 'application/'+tipo)
         .then(() => console.log('File is opened'))
         .catch(e => console.log('Error openening file', e));
       }, (error) => {
@@ -110,22 +118,25 @@ export class ListPage {
   onPress() {
     console.log('pressed');
   } 
-  regularShare(nombre, nombre2){
+  regularShare(nombre, nombre2, tipo){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loading.present();
     this.platform.ready().then(() => {
       const fileTransfer: FileTransferObject = this.transfer.create();
-      const url = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/'+nombre);
-      fileTransfer.download(url, this.storageDirectory+nombre).then((entry) => {
+      this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/pdf/'+nombre);
+      if(tipo != 'pdf'){
+        this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/office/'+nombre);
+      }
+      fileTransfer.download(this.tipo_file, this.storageDirectory+nombre).then((entry) => {
         loading.dismiss();
          // share(message, subject, file, url)
-        this.socialSharing.share("This a file shared from Emergency Kit APP by OCHA ROLAC", nombre2, entry.toURL(), url); 
+        this.socialSharing.share("This a file shared from Emergency Kit APP by OCHA ROLAC", nombre2, entry.toURL(), null); 
       }, (error) => {});
       });
   }
-  presentActionSheet(nombre, nombre2) {
+  presentActionSheet(nombre, nombre2, tipo) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'File options',
       buttons: [
@@ -133,13 +144,13 @@ export class ListPage {
           text: 'Download',
           icon: 'download',
           handler: () => {
-            this.viewerDocument(nombre);
+            this.viewerDocument(nombre,tipo);
           }
         },{
           text: 'Share',
           icon: 'share',
           handler: () => {
-            this.regularShare(nombre, nombre2);
+            this.regularShare(nombre, nombre2,tipo);
           }
         },{
           text: 'Cancel',

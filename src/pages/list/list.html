@@ -33,11 +33,11 @@
 -->
       <div class="listaall">
           
-          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)" (press)="presentActionSheet(post.nombre_archivo,post.nombre)">
+          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo,post.tipo_adjunto)" (press)="presentActionSheet(post.nombre_archivo,post.nombre,post.tipo_adjunto)">
 
             <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>
 
-            <h4>{{post.fecha_modifica.date | date: 'd MMM yyyy' }}</h4>
+            <h4>{{post.dfecha }}</h4>
             <p>{{post.nombre}}</p>
             
           </div>
