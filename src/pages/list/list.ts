@@ -43,7 +43,8 @@ export class ListPage {
     });
     alert.present();
   }
-  viewerDocument(nombre,tipo){
+  viewerDocument(nombre,nombre2,tipo){
+    if(tipo == "pdf"){ 
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -56,21 +57,20 @@ export class ListPage {
         this.tipo_file = encodeURI('http://sara.un-ocha.org/uploads/documentos/office/'+nombre);
         this.codigo = 'application/msword';
       }
-      
-      
-      //this.presentAlert(url);
-      //this.presentAlert(this.storageDirectory+nombre);
       fileTransfer.download(this.tipo_file, this.storageDirectory+nombre).then((entry) => {
         //this.presentAlert(entry.toURL());
         //this.document.viewDocument(entry.toURL(), 'application/pdf', options);
         loading.dismiss();
         this.fileOpener.open(entry.toURL(), 'application/'+tipo)
         .then(() => console.log('File is opened'))
-        .catch(e => console.log('Error openening file', e));
+        .catch(e => this.presentAlert("You don't have an application available for reading PDF files"));
       }, (error) => {
         //this.presentAlert(error.code);
       });
       });
+    }else{
+      this.regularShare(nombre, nombre2,tipo);
+    }
 
   }
   busca(tipo,sub){
@@ -137,6 +137,7 @@ export class ListPage {
       });
   }
   presentActionSheet(nombre, nombre2, tipo) {
+    if(tipo == 'pdf'){ 
     let actionSheet = this.actionSheetCtrl.create({
       title: 'File options',
       buttons: [
@@ -144,7 +145,7 @@ export class ListPage {
           text: 'Download',
           icon: 'download',
           handler: () => {
-            this.viewerDocument(nombre,tipo);
+            this.viewerDocument(nombre,nombre2,tipo);
           }
         },{
           text: 'Share',
@@ -162,5 +163,25 @@ export class ListPage {
     });
     actionSheet.present();
   }
-
+  else{ 
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'File options',
+      buttons: [
+        {
+          text: 'Share',
+          icon: 'share',
+          handler: () => {
+            this.regularShare(nombre, nombre2,tipo);
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+  }
 }

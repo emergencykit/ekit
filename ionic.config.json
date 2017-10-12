@@ -1,6 +1,6 @@
 {
   "name": "ekit",
-  "app_id": "",
+  "app_id": "b56b234d",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
