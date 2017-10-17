@@ -30,7 +30,7 @@ var AboutPage = (function () {
 }());
 AboutPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-about',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>About</ion-title>\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div text-center class="ptext">\n    <h2 text-center>OCHA ROLAC</h2>\n    <p>La Oficina Regional de OCHA para América Latina y el Caribe (OCHA - ROLAC) tiene su sede en la Ciudad de Panamá.<br><br>\n\nMás de 25 trabajadores humanitarios, tanto nacionales como internacionales, laboran en OCHA desde Panamá para asegurar que los socios humanitarios nacionales y regionales trabajan mejor juntos durante las emergencias. \n</p>\n  \n\n    <strong>Clayton, Ciudad del Saber,</strong><br>\n    Ave. Vicente Bonilla, Edif. 119 A6B<br>\n\n\n  \n\n  <strong>E-mail:</strong> ocha-rolac@un.org<br>\n  <strong>Teléfono:</strong> (507) 317 1748<br>\n  <strong>Teléfono de emergencia:</strong> (507) 6679-1861<br>\n</div>\n<br><br>\n</ion-content>\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\about\about.html"*/,
+        selector: 'page-about',template:/*ion-inline-start:"/Users/raphael_b/Documents/apps/ekit/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>About</ion-title>\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div text-center class="ptext">\n    <h2 text-center>OCHA ROLAC</h2>\n    <p>La Oficina Regional de OCHA para América Latina y el Caribe (OCHA - ROLAC) tiene su sede en la Ciudad de Panamá.<br><br>\n\nMás de 25 trabajadores humanitarios, tanto nacionales como internacionales, laboran en OCHA desde Panamá para asegurar que los socios humanitarios nacionales y regionales trabajan mejor juntos durante las emergencias. \n</p>\n  \n\n    <strong>Clayton, Ciudad del Saber,</strong><br>\n    Ave. Vicente Bonilla, Edif. 119 A6B<br>\n\n\n  \n\n  <strong>E-mail:</strong> ocha-rolac@un.org<br>\n  <strong>Teléfono:</strong> (507) 317 1748<br>\n  <strong>Teléfono de emergencia:</strong> (507) 6679-1861<br>\n</div>\n<br><br>\n</ion-content>\n'/*ion-inline-end:"/Users/raphael_b/Documents/apps/ekit/src/pages/about/about.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
 ], AboutPage);
@@ -43,11 +43,89 @@ AboutPage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SubcarpetaPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_list_list__ = __webpack_require__(80);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the SubcarpetaPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+var SubcarpetaPage = (function () {
+    function SubcarpetaPage(navCtrl, navParams, weatherProvider, loadingCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.weatherProvider = weatherProvider;
+        this.loadingCtrl = loadingCtrl;
+        this.nombre = this.navParams.get('thing2');
+        this.carpeta = this.navParams.get('thing1');
+        this.subcarpeta = this.navParams.get('thing3');
+        this.busca(this.navParams.get('thing1'));
+        console.log(this.navParams.get('thing2'));
+        console.log(this.navParams.get('thing1'));
+    }
+    SubcarpetaPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad SubcarpetaPage');
+    };
+    SubcarpetaPage.prototype.busca = function (tipo) {
+        var _this = this;
+        var loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        console.log(tipo);
+        loading.present();
+        this.weatherProvider.getSubCarpetas(tipo).
+            subscribe(function (posts) {
+            _this.datos = posts.subcarpetas;
+            loading.dismiss();
+            console.log(_this.datos);
+        });
+    };
+    SubcarpetaPage.prototype.goToTheLists = function (tipo, nombre, sub) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__pages_list_list__["a" /* ListPage */], {
+            thing1: tipo,
+            thing2: nombre,
+            thing3: sub,
+        });
+    };
+    return SubcarpetaPage;
+}());
+SubcarpetaPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-subcarpeta',template:/*ion-inline-start:"/Users/raphael_b/Documents/apps/ekit/src/pages/subcarpeta/subcarpeta.html"*/'<!--\n  Generated template for the SubcarpetaPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{nombre}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h5>Select Folder</h5>\n    \n        <ion-list>\n            <ion-item *ngFor="let post of datos" (click)="goToTheLists(carpeta,nombre,subcarpeta)">\n  \n              <ion-icon ios="ios-folder" md="md-folder"></ion-icon>\n  \n              <h4>{{post.nombre}}</h4>\n            </ion-item>\n          </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/raphael_b/Documents/apps/ekit/src/pages/subcarpeta/subcarpeta.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__["a" /* WeatherProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
+], SubcarpetaPage);
+
+//# sourceMappingURL=subcarpeta.js.map
+
+/***/ }),
+
+/***/ 106:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_detail_detail__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_opener__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_detail_detail__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_opener__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(162);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -130,91 +208,13 @@ var DetailPage = (function () {
 }());
 DetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-detail',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\detail\detail.html"*/'<!--\n  Generated template for the DetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>detail</ion-title>\n    <ion-buttons end *ngFor="let post of datos">\n        <button ion-button icon-only (click)="downloadFile(post.nombre_archivo);">\n          <ion-icon name="download"></ion-icon>\n        </button>\n        <button ion-button icon-only (click)="downloadFile(post.nombre_archivo);">\n          <ion-icon name="share"></ion-icon>\n        </button>\n      </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    \n  <div *ngFor="let post of datos">\n  <h4>{{post.nombre}}</h4>\n  <div [innerHTML]="post.descripcion">\n  \n\n  </div>\n  \n  </div>\n  \n</ion-content>\n\n\n        \n\n\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\detail\detail.html"*/,
+        selector: 'page-detail',template:/*ion-inline-start:"/Users/raphael_b/Documents/apps/ekit/src/pages/detail/detail.html"*/'<!--\n  Generated template for the DetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>detail</ion-title>\n    <ion-buttons end *ngFor="let post of datos">\n        <button ion-button icon-only (click)="downloadFile(post.nombre_archivo);">\n          <ion-icon name="download"></ion-icon>\n        </button>\n        <button ion-button icon-only (click)="downloadFile(post.nombre_archivo);">\n          <ion-icon name="share"></ion-icon>\n        </button>\n      </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    \n  <div *ngFor="let post of datos">\n  <h4>{{post.nombre}}</h4>\n  <div [innerHTML]="post.descripcion">\n  \n\n  </div>\n  \n  </div>\n  \n</ion-content>\n\n\n        \n\n\n'/*ion-inline-end:"/Users/raphael_b/Documents/apps/ekit/src/pages/detail/detail.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["b" /* FileTransferObject */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_file_opener__["a" /* FileOpener */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2__providers_detail_detail__["a" /* DetailProvider */]])
 ], DetailPage);
 
 //# sourceMappingURL=detail.js.map
-
-/***/ }),
-
-/***/ 106:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SubcarpetaPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_list_list__ = __webpack_require__(82);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Generated class for the SubcarpetaPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-var SubcarpetaPage = (function () {
-    function SubcarpetaPage(navCtrl, navParams, weatherProvider, loadingCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.weatherProvider = weatherProvider;
-        this.loadingCtrl = loadingCtrl;
-        this.nombre = this.navParams.get('thing2');
-        this.carpeta = this.navParams.get('thing1');
-        this.subcarpeta = this.navParams.get('thing3');
-        this.busca(this.navParams.get('thing1'));
-        console.log(this.navParams.get('thing2'));
-        console.log(this.navParams.get('thing1'));
-    }
-    SubcarpetaPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SubcarpetaPage');
-    };
-    SubcarpetaPage.prototype.busca = function (tipo) {
-        var _this = this;
-        var loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
-        console.log(tipo);
-        loading.present();
-        this.weatherProvider.getSubCarpetas(tipo).
-            subscribe(function (posts) {
-            _this.datos = posts.subcarpetas;
-            loading.dismiss();
-            console.log(_this.datos);
-        });
-    };
-    SubcarpetaPage.prototype.goToTheLists = function (tipo, nombre, sub) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__pages_list_list__["a" /* ListPage */], {
-            thing1: tipo,
-            thing2: nombre,
-            thing3: sub,
-        });
-    };
-    return SubcarpetaPage;
-}());
-SubcarpetaPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-subcarpeta',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\subcarpeta\subcarpeta.html"*/'<!--\n  Generated template for the SubcarpetaPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{nombre}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h5>Select Folder</h5>\n    \n        <ion-list>\n            <ion-item *ngFor="let post of datos" (click)="goToTheLists(carpeta,nombre,subcarpeta)">\n  \n              <ion-icon ios="ios-folder" md="md-folder"></ion-icon>\n  \n              <h4>{{post.nombre}}</h4>\n            </ion-item>\n          </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\subcarpeta\subcarpeta.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__["a" /* WeatherProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
-], SubcarpetaPage);
-
-//# sourceMappingURL=subcarpeta.js.map
 
 /***/ }),
 
@@ -244,11 +244,11 @@ var map = {
 		2
 	],
 	"../pages/detail/detail.module": [
-		276,
+		277,
 		1
 	],
 	"../pages/subcarpeta/subcarpeta.module": [
-		277,
+		276,
 		0
 	]
 };
@@ -268,14 +268,14 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 158:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -316,8 +316,8 @@ DetailProvider = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_list_list__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_subcarpeta_subcarpeta__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_list_list__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_subcarpeta_subcarpeta__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -354,7 +354,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Emergency Kit</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <div class="imagenbg" text-center>\n    <h1>EMERGENCY KIT</h1>\n    <h3>OCHA ROLAC</h3>\n  </div>\n  <br><br>\n  <p text-center>In this application you will be able to see the necessary tools for the main actions that must be developed during an emergency\n    </p>\n  \n  <div class="row">\n    <div class="col col-100 menu-main" (click)="goToTheLists(\'1\',\'CHECKLIST AND HANDBOOK\',\'0\')">\n        <ion-icon name="folder"></ion-icon><br>\n        CHECKLIST AND HANDBOOK\n    </div>\n    <div class="col col-100 menu-main" (click)="goToTheLists(\'2\',\'DIRECTORIES\',\'0\')">\n        <ion-icon name="folder"></ion-icon><br>\n        DIRECTORIES\n    </div>\n  </div>\n  \n  <div class="row">\n    <div class="col col-50 menu-main" (click)="goToTheSubolders(\'3\',\'TEMPLATES\')">\n        <ion-icon name="folder"></ion-icon><br>\n        TEMPLATES\n    </div>\n    <div class="col col-50 menu-main" (click)="goToTheLists(\'4\',\'HUMANITARIAN RESPONSE PLAN\',\'0\')">\n        <ion-icon name="folder"></ion-icon><br>\n        HUMANITARIAN RESPONSE PLAN\n    </div>\n  </div>\n  \n\n    <br><br>\n  \n</ion-content>\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/raphael_b/Documents/apps/ekit/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Emergency Kit</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <div class="imagenbg" text-center>\n    <h1>EMERGENCY KIT</h1>\n    <h3>OCHA ROLAC</h3>\n  </div>\n  <br><br>\n  <p text-center>In this application you will be able to see the necessary tools for the main actions that must be developed during an emergency\n    </p>\n  \n  <div class="row">\n    <div class="col col-100 menu-main" (click)="goToTheLists(\'1\',\'CHECKLIST AND HANDBOOK\',\'0\')">\n        <ion-icon name="folder"></ion-icon><br>\n        CHECKLIST AND HANDBOOK\n    </div>\n    <div class="col col-100 menu-main" (click)="goToTheLists(\'2\',\'DIRECTORIES\',\'0\')">\n        <ion-icon name="folder"></ion-icon><br>\n        DIRECTORIES\n    </div>\n  </div>\n  \n  <div class="row">\n    <div class="col col-50 menu-main" (click)="goToTheSubolders(\'3\',\'TEMPLATES\')">\n        <ion-icon name="folder"></ion-icon><br>\n        TEMPLATES\n    </div>\n    <div class="col col-50 menu-main" (click)="goToTheLists(\'4\',\'HUMANITARIAN RESPONSE PLAN\',\'0\')">\n        <ion-icon name="folder"></ion-icon><br>\n        HUMANITARIAN RESPONSE PLAN\n    </div>\n  </div>\n  \n\n    <br><br>\n  \n</ion-content>\n'/*ion-inline-end:"/Users/raphael_b/Documents/apps/ekit/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
 ], HomePage);
@@ -385,19 +385,19 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_opener__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_opener__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_list_list__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_detail_detail__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_list_list__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_detail_detail__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_about_about__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_subcarpeta_subcarpeta__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_subcarpeta_subcarpeta__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_document_viewer__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_weather_weather__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_detail_detail__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_weather_weather__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_detail_detail__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__ = __webpack_require__(163);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -443,8 +443,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */], {}, {
                 links: [
                     { loadChildren: '../pages/about/about.module#AboutPageModule', name: 'AboutPage', segment: 'about', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/detail/detail.module#DetailPageModule', name: 'DetailPage', segment: 'detail', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/subcarpeta/subcarpeta.module#SubcarpetaPageModule', name: 'SubcarpetaPage', segment: 'subcarpeta', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/subcarpeta/subcarpeta.module#SubcarpetaPageModule', name: 'SubcarpetaPage', segment: 'subcarpeta', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/detail/detail.module#DetailPageModule', name: 'DetailPage', segment: 'detail', priority: 'low', defaultHistory: [] }
                 ]
             }),
         ],
@@ -534,7 +534,7 @@ __decorate([
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\app\app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/raphael_b/Documents/apps/ekit/src/app/app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>'/*ion-inline-end:"/Users/raphael_b/Documents/apps/ekit/src/app/app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
@@ -543,14 +543,14 @@ MyApp = __decorate([
 
 /***/ }),
 
-/***/ 81:
+/***/ 78:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WeatherProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -590,18 +590,18 @@ WeatherProvider = __decorate([
 
 /***/ }),
 
-/***/ 82:
+/***/ 80:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_detail_detail__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_detail_detail__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_opener__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_opener__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__ = __webpack_require__(163);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -798,7 +798,7 @@ var ListPage = (function () {
 }());
 ListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-list',template:/*ion-inline-start:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\list\list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{nombre}}</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="toggleSearchbar()">\n        <ion-icon name="search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n  <ion-toolbar class="divtoolbar" *ngIf="showSearchbar">\n      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class="action-sheets-basic-page">\n  <h5>Document List <br> <span class="label-info">Press item for more options</span></h5>\n  <!-- <ion-list>\n    <ion-item-sliding text-wrap *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)">\n      <ion-item>\n        <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n        <h4>{{post.fecha_modifica.date | date: \'d MMM yyyy\' }}</h4>\n        <p>{{post.nombre}}</p>\n      </ion-item>\n      <ion-item-options side="right">\n        <button ion-button (click)="regularShare()"><ion-icon ios="ios-share" md="md-share"></ion-icon></button>\n        <button ion-button color="secondary" (click)="share(item)"><ion-icon ios="ios-download" md="md-download"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n-->\n      <div class="listaall">\n          \n          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo,post.nombre,post.tipo_adjunto)" (press)="presentActionSheet(post.nombre_archivo,post.nombre,post.tipo_adjunto)">\n\n            <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n\n            <h4>{{post.dfecha }}</h4>\n            <p>{{post.nombre}}</p>\n            \n          </div>\n\n        </div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\FURRIOLA.UNOCHA\Desktop\ekit\src\pages\list\list.html"*/,
+        selector: 'page-list',template:/*ion-inline-start:"/Users/raphael_b/Documents/apps/ekit/src/pages/list/list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{nombre}}</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="toggleSearchbar()">\n        <ion-icon name="search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n  <ion-toolbar class="divtoolbar" *ngIf="showSearchbar">\n      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class="action-sheets-basic-page">\n  <h5>Document List <br> <span class="label-info">Press item for more options</span></h5>\n  <!-- <ion-list>\n    <ion-item-sliding text-wrap *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo)">\n      <ion-item>\n        <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n        <h4>{{post.fecha_modifica.date | date: \'d MMM yyyy\' }}</h4>\n        <p>{{post.nombre}}</p>\n      </ion-item>\n      <ion-item-options side="right">\n        <button ion-button (click)="regularShare()"><ion-icon ios="ios-share" md="md-share"></ion-icon></button>\n        <button ion-button color="secondary" (click)="share(item)"><ion-icon ios="ios-download" md="md-download"></ion-icon></button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n-->\n      <div class="listaall">\n          \n          <div class="item-lista" *ngFor="let post of items" (tap)="viewerDocument(post.nombre_archivo,post.nombre,post.tipo_adjunto)" (press)="presentActionSheet(post.nombre_archivo,post.nombre,post.tipo_adjunto)">\n\n            <ion-icon ios="ios-list-box" md="md-list-box"></ion-icon>\n\n            <h4>{{post.dfecha }}</h4>\n            <p>{{post.nombre}}</p>\n            \n          </div>\n\n        </div>\n\n</ion-content>\n'/*ion-inline-end:"/Users/raphael_b/Documents/apps/ekit/src/pages/list/list.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["b" /* FileTransferObject */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__["a" /* SocialSharing */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_opener__["a" /* FileOpener */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_weather_weather__["a" /* WeatherProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
