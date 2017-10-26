@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-document-viewer@0.9.5",
+  "_from": "cordova-plugin-document-viewer@^0.9.5",
   "_id": "cordova-plugin-document-viewer@0.9.5",
   "_inBundle": false,
   "_integrity": "sha1-4wYViUzqD9Ay5SNnCHZfPs7fOB4=",
   "_location": "/cordova-plugin-document-viewer",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-document-viewer@0.9.5",
+    "raw": "cordova-plugin-document-viewer@^0.9.5",
     "name": "cordova-plugin-document-viewer",
     "escapedName": "cordova-plugin-document-viewer",
-    "rawSpec": "0.9.5",
+    "rawSpec": "^0.9.5",
     "saveSpec": null,
-    "fetchSpec": "0.9.5"
+    "fetchSpec": "^0.9.5"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-document-viewer/-/cordova-plugin-document-viewer-0.9.5.tgz",
   "_shasum": "e30615894cea0fd032e5236708765f3ecedf381e",
-  "_spec": "cordova-plugin-document-viewer@0.9.5",
-  "_where": "C:\\Users\\FURRIOLA.UNOCHA\\Desktop\\ekit\\node_modules",
+  "_spec": "cordova-plugin-document-viewer@^0.9.5",
+  "_where": "/Users/raphael_b/Documents/apps/ekit/node_modules",
   "author": {
     "name": "Felix Schauerte"
   },
